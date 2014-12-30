@@ -1,0 +1,21 @@
+{
+  "name": "fandlebars",
+  "version": "0.0.2",
+  "description": "This is my quick and dirty version of handlebars",
+  "keywords": ["fandlebars"],
+  "author": "Jim McAndrew <jim@loc8.us>",
+  "license": "Public Domain",
+  "contributors": [{
+    "name": "Jim McAndrew",
+    "email": "jim@loc8.us"
+  }],
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/jimmyrocks/fandlebars"
+  },
+  "dependencies": {
+  }
+}
