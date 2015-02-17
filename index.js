@@ -1,3 +1,3 @@
 var returnValue = require('./src/fandlebars');
-returnValue.object = = require('./src/fandlebarsObject');
+returnValue.obj = = require('./src/fandlebarsObject');
 module.exports = returnValue;
