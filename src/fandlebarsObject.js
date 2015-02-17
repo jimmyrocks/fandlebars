@@ -1,7 +1,7 @@
 //Updates an entire object using fandlebars
 var fandlebars = require('./fandlebars.js');
 
-module.exports = function(obj, tree) {
+var fbobj = function(obj, tree) {
   var newObj = Array.isArray(obj) ? [] : {};
   for (var v in obj) {
     if (typeof obj[v] === 'object') {
@@ -12,3 +12,5 @@ module.exports = function(obj, tree) {
   }
   return newObj;
 };
+
+module.exports = fbobj;
