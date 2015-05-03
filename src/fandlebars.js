@@ -1,4 +1,4 @@
-module.exports = function(text, origTree) {
+module.exports = function(text, origTree, processing) {
   // This is my quick and dirty version of handlebars
   var re = function(name) {
       return new RegExp('{{' + name + '}}', 'g');
@@ -31,7 +31,7 @@ module.exports = function(text, origTree) {
         taskManager = function(a, t) {
           var type = Object.prototype.toString.call(t[a[0]]).replace(/\[object (.+?)\]/, '$1').toLowerCase(),
             fn = tasks[type] ? tasks[type] : tasks['default'];
-          return fn(a, t);
+          return processing ? processing(fn(a,t)) : fn(a, t);
         };
       return taskManager(addresses, tree);
     };
