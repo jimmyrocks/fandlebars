@@ -1,4 +1,4 @@
-module.exports = function(text, origTree, processing) {
+module.exports = function(text, origTree, processing, returnObjects) {
   // This is my quick and dirty version of handlebars
   var re = function(name) {
       return new RegExp('{{' + name + '}}', 'g');
@@ -6,6 +6,7 @@ module.exports = function(text, origTree, processing) {
     replaceables,
     replaceAddress,
     replaceValueId,
+    replacedObjects = {},
     treeSearch = function(addresses, tree) {
       var tasks = {
           'object': function(a, t) {
@@ -41,10 +42,12 @@ module.exports = function(text, origTree, processing) {
     if (replaceables) {
       for (replaceValueId = 0; replaceValueId < replaceables.length; replaceValueId++) {
         replaceAddress = replaceables[replaceValueId].replace(re('(.+?)'), '$1').split('.');
-        text = text.replace(replaceables[replaceValueId], treeSearch(replaceAddress, origTree));
+        replacedObjects[replaceables[replaceValueId]] = treeSearch(replaceAddress, origTree);
+        text = text.replace(replaceables[replaceValueId], replacedObjects[replaceables[replaceValueId]]);
+        // text = text.replace(replaceables[replaceValueId], treeSearch(replaceAddress, origTree));
       }
     }
   }
 
-  return text;
+  return returnObjects ? replacedObjects : text;
 };
