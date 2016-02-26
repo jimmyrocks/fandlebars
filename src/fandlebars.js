@@ -27,7 +27,7 @@ module.exports = function (text, origTree, processing, returnObjects) {
       },
       'function': function (a, t) {
         var returnValue;
-        if (a.length) {
+        if (a.length > 1) {
           returnValue = t[a[0]](a.slice(1), t);
           return a.length > 2 ? treeSearch(a.slice(2), returnValue) : returnValue;
         } else {
