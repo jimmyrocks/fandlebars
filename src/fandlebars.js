@@ -27,8 +27,12 @@ module.exports = function (text, origTree, processing, returnObjects) {
       },
       'function': function (a, t) {
         var returnValue;
-        returnValue = t[a[0]](a.slice(1), t);
-        return a.length > 2 ? treeSearch(a.slice(2), returnValue) : returnValue;
+        if (a.length) {
+          returnValue = t[a[0]](a.slice(1), t);
+          return a.length > 2 ? treeSearch(a.slice(2), returnValue) : returnValue;
+        } else {
+          return t[a[0]];
+        }
       },
       'default': function (a, t) {
         return a.length === 1 ? t[a[0]] : undefined;
@@ -48,7 +52,7 @@ module.exports = function (text, origTree, processing, returnObjects) {
       for (replaceValueId = 0; replaceValueId < replaceables.length; replaceValueId++) {
         replaceAddress = replaceables[replaceValueId].replace(re('(.+?)'), '$1').split('.');
         replacedObjects[replaceables[replaceValueId]] = treeSearch(replaceAddress, origTree);
-        if (typeof replacedObjects[replaceables[replaceValueId]] === 'object') {
+        if (['object', 'function'].indexOf(typeof replacedObjects[replaceables[replaceValueId]]) > -1) {
           replaceAsString[replaceables[replaceValueId]] = JSON.stringify(replacedObjects[replaceables[replaceValueId]]);
         } else {
           replaceAsString[replaceables[replaceValueId]] = replacedObjects[replaceables[replaceValueId]];
